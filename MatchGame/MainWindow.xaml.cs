@@ -48,5 +48,32 @@ namespace MatchGame
                 animalEmoji.RemoveAt(index);
             }
         }
+
+        // global variables for the TextBLock_MouseDown
+        TextBlock lastTextBlockClicked;
+        bool findingMatch = false;
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+         TextBlock textBlock = sender as TextBlock;
+        if (findingMatch == false) // if our default state is false 
+            {
+                textBlock.Visibility = Visibility.Hidden; 
+                lastTextBlockClicked = textBlock;
+                findingMatch = true;
+            }
+        else if ( textBlock.Text == lastTextBlockClicked.Text ) // if the textBlock text that was clicked MATCHES the last textBlock clicked text
+            {
+                textBlock.Visibility = Visibility.Hidden;
+                findingMatch = false;
+            }
+        else
+            {
+                lastTextBlockClicked.Visibility = Visibility.Visible;
+                findingMatch = false;
+            }
+        }
+
+ 
     }
 }
